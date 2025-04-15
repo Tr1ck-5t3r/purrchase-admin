@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Pets</title>
+    <style>
+      /* General Styles */
+      body {
+          font-family: 'Arial', sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+
+      /* Common Container Style */
+      .container {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          width: 100%;
+          max-width: 800px;
+      }
+
+      /* Headings */
+      h2 {
+          margin-bottom: 20px;
+          color: #333;
+      }
+
+      /* Tables */
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          background: #fff;
+      }
+
+      th, td {
+          padding: 12px;
+          border-bottom: 1px solid #ddd;
+          text-align: center;
+      }
+
+      th {
+          background-color: #007bff;
+          color: white;
+      }
+
+      /* Buttons */
+      .btn {
+          display: inline-block;
+          text-decoration: none;
+          color: white;
+          background: #007bff;
+          padding: 8px 10px;
+          margin: 5px;
+          border-radius: 5px;
+          font-size: 14px;
+          transition: 0.3s;
+      }
+
+      .btn:hover {
+          background: #0056b3;
+      }
+
+      .delete-btn {
+          background: red;
+      }
+
+      .delete-btn:hover {
+          background: darkred;
+      }
+
+      /* Pet Image */
+      .pet-img {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 600px) {
+          .container {
+              width: 90%;
+          }
+          .pet-img {
+              width: 60px;
+              height: 60px;
+          }
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manage Pets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pets.forEach(pet => { %>
+                    <tr>
+                        <td>
+                            <% if (pet.images && pet.images.length > 0) { %>
+                                <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= pet.images[0] %>" alt="Pet Image" class="pet-img">
+                            <% } else { %>
+                                <span>No Image</span>
+                            <% } %>
+                        </td>
+                        <td><%= pet.name %></td>
+                        <td><%= pet.species %></td>
+                        <td>
+                            <a href="/edit-pet/<%= pet._id %>" class="btn">Edit</a>
+                            <a href="/delete-pet/<%= pet._id %>" class="btn delete-btn">Delete</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

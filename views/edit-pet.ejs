@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pet</title>
+    <style>
+      /* General Styles */
+      body {
+          font-family: 'Arial', sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+      }
+
+      /* Form Container */
+      .form-container {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 450px;
+          text-align: center;
+      }
+
+      /* Headings */
+      h2 {
+          margin-bottom: 20px;
+          color: #333;
+      }
+
+      /* Input Fields */
+      input, select, textarea {
+          width: 95%;
+          padding: 10px;
+          margin-bottom: 12px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+
+      select {
+          background-color: #fff;
+          cursor: pointer;
+      }
+
+      textarea {
+          resize: vertical;
+          min-height: 80px;
+      }
+
+      input[type="file"] {
+          border: none;
+      }
+
+      /* Buttons */
+      button {
+          width: 100%;
+          padding: 12px;
+          background-color: #28a745;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 18px;
+          cursor: pointer;
+          transition: background 0.3s;
+      }
+
+      button:hover {
+          background-color: #218838;
+      }
+
+      /* Pet Image */
+      .pet-images {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 15px;
+      }
+
+      .pet-img {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 600px) {
+          .form-container {
+              width: 90%;
+          }
+
+          .pet-img {
+              width: 60px;
+              height: 60px;
+          }
+      }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Pet</h2>
+        <form action="/update-pet/<%= pet._id %>" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" value="<%= pet.name %>" required>
+            <input type="text" name="breed" value="<%= pet.breed %>" required>
+
+            <select name="species" required>
+                <option value="dog" <%= pet.species === "dog" ? "selected" : "" %>>Dog</option>
+                <option value="cat" <%= pet.species === "cat" ? "selected" : "" %>>Cat</option>
+                <option value="bird" <%= pet.species === "bird" ? "selected" : "" %>>Bird</option>
+                <option value="reptile" <%= pet.species === "reptile" ? "selected" : "" %>>Reptile</option>
+                <option value="fish" <%= pet.species === "fish" ? "selected" : "" %>>Fish</option>
+                <option value="other" <%= pet.species === "other" ? "selected" : "" %>>Other</option>
+            </select>
+
+            <input type="number" name="age" value="<%= pet.age %>" required>
+            <input type="number" name="price" value="<%= pet.price %>" required>
+            <textarea name="description" placeholder="Enter pet description..."><%= pet.description %></textarea>
+
+            <!-- Display Existing Images -->
+            <div>
+                <h4>Current Images</h4>
+                <div class="pet-images">
+                    <% pet.images.forEach(image => { %>
+                        <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= pet.images[0] %>" class="pet-img">
+                    <% }) %>
+                </div>
+            </div>
+
+            <!-- Image Upload -->
+            <input type="file" name="images" multiple>
+
+            <button type="submit">Update Pet</button>
+        </form>
+    </div>
+</body>
+</html>
