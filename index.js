@@ -19,24 +19,20 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true if using HTTPS
-      httpOnly: true, // Prevents client-side JS access
-      sameSite: "strict", // Protects against CSRF attacks
+      secure: false, 
+      httpOnly: false, 
+      sameSite: "strict", 
     },
   })
 );
 
-// ✅ Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// ✅ Set EJS as the view engine
 app.set("view engine", "ejs");
 
-// ✅ Import & Use Routes
 const adminRoutes = require("./routes");
 app.use("/", adminRoutes);
 
-// ✅ MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
