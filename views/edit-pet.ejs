@@ -3,143 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pet</title>
+    <!-- Use the specific pet name in the title if available -->
+    <title>Edit Pet - <%= pet.name %></title>
     <style>
       /* General Styles */
       body {
           font-family: 'Arial', sans-serif;
           background-color: #f8f9fa;
           margin: 0;
-          padding: 20px;
+          padding: 30px 20px; /* Add padding */
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: flex-start; /* Align form to top */
           min-height: 100vh;
+          box-sizing: border-box;
+      }
+
+      /* Apply box-sizing globally */
+      *, *::before, *::after {
+          box-sizing: inherit;
       }
 
       /* Form Container */
       .form-container {
           background: white;
-          padding: 20px;
+          padding: 30px; /* Increased padding */
           border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           width: 100%;
-          max-width: 450px;
-          text-align: center;
+          max-width: 600px; /* Slightly wider for images */
+          /* text-align: center; <- Removed */
       }
 
       /* Headings */
       h2 {
-          margin-bottom: 20px;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 25px;
           color: #333;
       }
 
-      /* Input Fields */
-      input, select, textarea {
-          width: 95%;
-          padding: 10px;
-          margin-bottom: 12px;
+      h4 {
+          margin-top: 20px;
+          margin-bottom: 10px;
+          color: #555;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 5px;
+      }
+
+      /* Form Element Styling */
+      .form-group {
+          margin-bottom: 18px;
+          text-align: left;
+      }
+
+      .form-group label {
+          display: block;
+          margin-bottom: 6px;
+          font-weight: bold;
+          color: #555;
+          font-size: 14px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+          width: 100%;
+          padding: 12px;
           border: 1px solid #ccc;
           border-radius: 5px;
           font-size: 16px;
+          box-sizing: border-box; /* Include padding/border in width */
       }
 
       select {
           background-color: #fff;
           cursor: pointer;
+          appearance: none; /* Optional: for custom arrow */
+          background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 12px auto;
+          padding-right: 40px;
       }
 
       textarea {
           resize: vertical;
-          min-height: 80px;
+          min-height: 100px;
       }
 
-      input[type="file"] {
-          border: none;
-      }
-
-      /* Buttons */
-      button {
+       /* File Input Specific Styling */
+       input[type="file"] {
           width: 100%;
-          padding: 12px;
-          background-color: #28a745;
-          color: white;
-          border: none;
+          padding: 10px;
+          border: 1px dashed #ccc;
           border-radius: 5px;
-          font-size: 18px;
+          font-size: 14px;
+          background-color: #f8f9fa;
           cursor: pointer;
-          transition: background 0.3s;
+          box-sizing: border-box;
+          margin-top: 5px; /* Align with other inputs via label */
       }
 
-      button:hover {
-          background-color: #218838;
+      input[type="file"]::file-selector-button {
+          padding: 8px 15px;
+          margin-right: 10px;
+          border: none;
+          background: #007bff;
+          color: white;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
       }
 
-      /* Pet Image */
+       input[type="file"]::file-selector-button:hover {
+          background-color: #0056b3;
+      }
+
+       small.help-text {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #6c757d; /* Bootstrap secondary color */
+       }
+
+
+      /* Current Images Display */
+       .current-images-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border: 1px solid #eee;
+            border-radius: 5px;
+       }
+
       .pet-images {
           display: flex;
-          justify-content: center;
+          /* justify-content: center; <- Align left now */
           flex-wrap: wrap;
-          gap: 10px;
-          margin-bottom: 15px;
+          gap: 12px; /* Slightly more gap */
+          margin-top: 10px;
+      }
+
+      .pet-img-wrapper {
+        position: relative; /* For potential future absolute elements */
       }
 
       .pet-img {
-          width: 80px;
-          height: 80px;
+          width: 90px; /* Increased size */
+          height: 90px;
           object-fit: cover;
           border-radius: 6px;
-          border: 1px solid #ddd;
+          border: 2px solid #ddd; /* Slightly thicker border */
+          display: block; /* Remove extra space below img */
+      }
+
+      /* Buttons */
+      button[type="submit"] {
+          width: 100%;
+          padding: 12px;
+          background-color: #ffc107; /* Warning color for update */
+          color: #212529; /* Dark text for yellow background */
+          border: none;
+          border-radius: 5px;
+          font-size: 18px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          margin-top: 15px; /* Space above button */
+          box-sizing: border-box;
+      }
+
+      button[type="submit"]:hover {
+          background-color: #e0a800; /* Darker warning color */
       }
 
       /* Responsive Design */
       @media (max-width: 600px) {
+          body {
+             padding: 20px 10px;
+          }
           .form-container {
-              width: 90%;
+              width: 95%;
+              padding: 20px;
           }
-
           .pet-img {
-              width: 60px;
-              height: 60px;
+              width: 70px;
+              height: 70px;
           }
+           h2 {
+              font-size: 1.6em;
+           }
       }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Edit Pet</h2>
-        <form action="/update-pet/<%= pet._id %>" method="POST" enctype="multipart/form-data">
-            <input type="text" name="name" value="<%= pet.name %>" required>
-            <input type="text" name="breed" value="<%= pet.breed %>" required>
+        <h2>Edit Pet Details</h2>
+        <!-- Ensure the action points to the correct update route -->
+        <form action="/update-pet/<%= pet._id %>?_method=PUT" method="POST" enctype="multipart/form-data"> <!-- Added method override if using method-override package -->
 
-            <select name="species" required>
-                <option value="dog" <%= pet.species === "dog" ? "selected" : "" %>>Dog</option>
-                <option value="cat" <%= pet.species === "cat" ? "selected" : "" %>>Cat</option>
-                <option value="bird" <%= pet.species === "bird" ? "selected" : "" %>>Bird</option>
-                <option value="reptile" <%= pet.species === "reptile" ? "selected" : "" %>>Reptile</option>
-                <option value="fish" <%= pet.species === "fish" ? "selected" : "" %>>Fish</option>
-                <option value="other" <%= pet.species === "other" ? "selected" : "" %>>Other</option>
-            </select>
+            <div class="form-group">
+                <label for="name">Pet Name</label>
+                <input type="text" id="name" name="name" value="<%= pet.name %>" required>
+            </div>
 
-            <input type="number" name="age" value="<%= pet.age %>" required>
-            <input type="number" name="price" value="<%= pet.price %>" required>
-            <textarea name="description" placeholder="Enter pet description..."><%= pet.description %></textarea>
+            <div class="form-group">
+                <label for="breed">Breed</label>
+                <input type="text" id="breed" name="breed" value="<%= pet.breed %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="species">Species</label>
+                <select id="species" name="species" required>
+                    <!-- Default disabled option can be helpful -->
+                    <option value="" disabled <%= !["dog", "cat", "bird", "reptile", "fish", "other"].includes(pet.species) ? "selected" : "" %>>-- Select Species --</option>
+                    <option value="dog" <%= pet.species === "dog" ? "selected" : "" %>>Dog</option>
+                    <option value="cat" <%= pet.species === "cat" ? "selected" : "" %>>Cat</option>
+                    <option value="bird" <%= pet.species === "bird" ? "selected" : "" %>>Bird</option>
+                    <option value="reptile" <%= pet.species === "reptile" ? "selected" : "" %>>Reptile</option>
+                    <option value="fish" <%= pet.species === "fish" ? "selected" : "" %>>Fish</option>
+                    <option value="other" <%= pet.species === "other" ? "selected" : "" %>>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age (Years)</label>
+                <input type="number" id="age" name="age" value="<%= pet.age %>" required min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price ($)</label>
+                <input type="number" id="price" name="price" value="<%= pet.price %>" required min="0" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Enter pet description..."><%= pet.description %></textarea>
+            </div>
 
             <!-- Display Existing Images -->
-            <div>
+            <div class="current-images-container">
                 <h4>Current Images</h4>
                 <div class="pet-images">
-                    <% pet.images.forEach(image => { %>
-                        <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= pet.images[0] %>" class="pet-img">
-                    <% }) %>
+                    <% if (pet.images && pet.images.length > 0) { %>
+                        <% pet.images.forEach(image => { %>
+                            <div class="pet-img-wrapper">
+                                <!-- Construct the full Cloudinary URL or use the direct URL if stored -->
+                                <!-- Assuming 'image' contains the public ID -->
+                                <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= image %>"
+                                     alt="Current image of <%= pet.name %>"
+                                     class="pet-img">
+                                <!-- Example: Add public ID if needed for deletion later -->
+                                <!-- <input type="hidden" name="existing_images[]" value="<%= image %>"> -->
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No current images.</p>
+                    <% } %>
                 </div>
             </div>
 
             <!-- Image Upload -->
-            <input type="file" name="images" multiple>
+            <div class="form-group">
+                 <label for="images">Upload New Images</label>
+                <input type="file" id="images" name="images" multiple accept="image/*">
+                 <small class="help-text">Select one or more new images. Uploading new images may replace the existing ones (depending on backend logic).</small>
+            </div>
 
             <button type="submit">Update Pet</button>
         </form>
+        <div style="margin-top: 15px; text-align: center;">
+            <a href="/pets" style="color: #007bff; text-decoration: none;">« Back to Pet List</a>
+        </div>
     </div>
 </body>
 </html>

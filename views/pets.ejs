@@ -10,127 +10,305 @@
           font-family: 'Arial', sans-serif;
           background-color: #f8f9fa;
           margin: 0;
-          padding: 20px;
+          padding: 30px 20px; /* Add padding */
           display: flex;
           justify-content: center;
-          align-items: center;
-          height: 100vh;
+          align-items: flex-start; /* Align container to top */
+          min-height: 100vh;
+          box-sizing: border-box;
       }
 
-      /* Common Container Style */
-      .container {
+      /* Apply box-sizing globally */
+      *, *::before, *::after {
+          box-sizing: inherit;
+      }
+
+      /* Page Container */
+      .page-container {
           background: white;
-          padding: 20px;
+          padding: 25px;
           border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          text-align: center;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           width: 100%;
-          max-width: 800px;
+          max-width: 1100px; /* Wider container for more columns */
+      }
+
+       /* Header Area */
+      .page-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap; /* Allow wrapping */
+          gap: 15px; /* Space between items */
+          margin-bottom: 25px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #dee2e6;
       }
 
       /* Headings */
       h2 {
-          margin-bottom: 20px;
-          color: #333;
+          margin: 0;
+          color: #343a40;
+          font-size: 1.8em;
+      }
+
+      /* Links/Buttons in Header */
+      .header-actions a {
+          color: #007bff;
+          text-decoration: none;
+          font-size: 0.95em;
+          margin-left: 15px; /* Space between links/buttons */
+          transition: color 0.2s ease;
+          vertical-align: middle;
+      }
+       .header-actions a:hover {
+          color: #0056b3;
+          text-decoration: underline;
+      }
+
+      .add-pet-btn {
+          background-color: #9dffb4;
+          color: white;
+          padding: 8px 15px;
+          border-radius: 5px;
+          text-decoration: none;
+          font-size: 0.95em;
+          transition: background-color 0.2s ease;
+      }
+       .add-pet-btn:hover {
+          background-color: #218838;
+          color: white;
+          text-decoration: none;
+       }
+
+      /* Table Container for Responsiveness */
+      .table-container {
+          overflow-x: auto; /* Enable horizontal scrolling */
       }
 
       /* Tables */
-      table {
+      table.pet-table { /* Added class */
           width: 100%;
           border-collapse: collapse;
           background: #fff;
+          margin-top: 10px;
+          min-width: 800px; /* Minimum width before scrollbar */
       }
 
-      th, td {
-          padding: 12px;
+      .pet-table th,
+      .pet-table td {
+          padding: 10px 12px; /* Adjusted padding */
           border-bottom: 1px solid #ddd;
+          text-align: left; /* Default left align */
+          vertical-align: middle;
+      }
+
+      .pet-table th {
+          background-color: #007bff;
+          color: white;
+          font-weight: bold;
+          white-space: nowrap;
+      }
+
+      /* Center align specific columns */
+      .pet-table th.image-col,
+      .pet-table td.image-col,
+      .pet-table th.price-col,
+      .pet-table td.price-col,
+      .pet-table th.actions-col,
+      .pet-table td.actions-col {
           text-align: center;
       }
 
-      th {
-          background-color: #007bff;
-          color: white;
-      }
+       .pet-table td.actions-col {
+           white-space: nowrap; /* Prevent action buttons wrapping */
+       }
+       .pet-table th.price-col,
+       .pet-table td.price-col {
+          width: 10%; /* Give price column a relative width */
+       }
+        .pet-table th.actions-col {
+           width: 15%; /* Give actions column a relative width */
+       }
 
-      /* Buttons */
-      .btn {
-          display: inline-block;
-          text-decoration: none;
-          color: white;
-          background: #007bff;
-          padding: 8px 10px;
-          margin: 5px;
-          border-radius: 5px;
-          font-size: 14px;
-          transition: 0.3s;
-      }
-
-      .btn:hover {
-          background: #0056b3;
-      }
-
-      .delete-btn {
-          background: red;
-      }
-
-      .delete-btn:hover {
-          background: darkred;
-      }
 
       /* Pet Image */
       .pet-img {
-          width: 80px;
-          height: 80px;
+          width: 70px;  /* Adjusted size */
+          height: 70px;
           object-fit: cover;
           border-radius: 6px;
           border: 1px solid #ddd;
+          display: block; /* Remove extra space below */
+          margin: 0 auto; /* Center image in cell */
+      }
+      .no-image-text {
+          font-size: 0.85em;
+          color: #6c757d;
+          font-style: italic;
+      }
+
+      /* Action Buttons */
+      .action-btn {
+          display: inline-block;
+          padding: 5px 10px; /* Smaller padding */
+          margin: 0 3px;
+          border-radius: 4px;
+          font-size: 13px; /* Smaller font */
+          text-decoration: none;
+          color: white;
+          cursor: pointer;
+          border: none;
+          transition: background-color 0.2s ease, transform 0.1s ease;
+          vertical-align: middle; /* Align if next to text */
+      }
+       .action-btn:hover {
+            transform: translateY(-1px);
+       }
+
+      .edit-btn {
+          background-color: #ffc107; /* Yellow for edit */
+          color: #212529; /* Dark text */
+      }
+      .edit-btn:hover {
+          background-color: #e0a800;
+          color: #212529;
+      }
+
+      .delete-btn {
+          background-color: #dc3545; /* Red for delete */
+      }
+      .delete-btn:hover {
+          background-color: #c82333;
+      }
+
+      /* Message for No Pets */
+      .no-pets-message {
+        text-align: center;
+        padding: 20px;
+        color: #6c757d;
+        font-style: italic;
       }
 
       /* Responsive Design */
-      @media (max-width: 600px) {
-          .container {
-              width: 90%;
+       @media (max-width: 768px) {
+          body {
+              padding: 20px 10px;
+          }
+          .page-container {
+              padding: 20px;
+          }
+           .page-header {
+              align-items: flex-start; /* Align items top */
+           }
+           h2 {
+               font-size: 1.6em;
+               width: 100%; /* Make title take full width if needed */
+               margin-bottom: 10px;
+           }
+           .header-actions {
+               margin-left: 0; /* Remove left margin on smaller screens */
+               width: 100%;
+               text-align: left; /* Align actions left */
+           }
+           .header-actions a {
+               margin-left: 0;
+               margin-right: 15px; /* Add right margin */
+           }
+       }
+
+       @media (max-width: 600px) {
+          .pet-table th,
+          .pet-table td {
+              padding: 8px 6px; /* Reduce padding */
+              font-size: 0.9em; /* Slightly smaller font */
           }
           .pet-img {
-              width: 60px;
-              height: 60px;
+              width: 50px;
+              height: 50px;
           }
-      }
-
+          .action-btn {
+              padding: 4px 8px;
+              font-size: 12px;
+          }
+           /* Optional: Hide less critical columns on very small screens */
+           /*
+           .pet-table th.breed-col,
+           .pet-table td.breed-col,
+           .pet-table th.age-col,
+           .pet-table td.age-col {
+               display: none;
+           }
+           */
+       }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Manage Pets</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Species</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% pets.forEach(pet => { %>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>Manage Pets</h2>
+            <div class="header-actions">
+                 <a href="/add-pet" class="add-pet-btn">Add New Pet</a>
+                 <a href="/dashboard" class="back-link">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="pet-table">
+                <thead>
                     <tr>
-                        <td>
-                            <% if (pet.images && pet.images.length > 0) { %>
-                                <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= pet.images[0] %>" alt="Pet Image" class="pet-img">
-                            <% } else { %>
-                                <span>No Image</span>
-                            <% } %>
-                        </td>
-                        <td><%= pet.name %></td>
-                        <td><%= pet.species %></td>
-                        <td>
-                            <a href="/edit-pet/<%= pet._id %>" class="btn">Edit</a>
-                            <a href="/delete-pet/<%= pet._id %>" class="btn delete-btn">Delete</a>
-                        </td>
+                        <th class="image-col">Image</th>
+                        <th>Name</th>
+                        <th>Species</th>
+                        <th class="breed-col">Breed</th> <!-- Optional: Add class if hiding later -->
+                        <th class="age-col">Age</th> <!-- Optional: Add class if hiding later -->
+                        <th class="price-col">Price</th>
+                        <th class="actions-col">Actions</th>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% if (pets && pets.length > 0) { %>
+                        <% pets.forEach(pet => { %>
+                            <tr>
+                                <td class="image-col">
+                                    <% if (pet.images && pet.images.length > 0 && pet.images[0]) { %>
+                                        <!-- *** REPLACE YOUR_CLOUD_NAME *** -->
+                                        <img src="https://res.cloudinary.com/dgz60odkx/image/upload/v1742493428/<%= pet.images[0] %>"
+                                             alt="Image of <%= pet.name %>" class="pet-img">
+                                    <% } else { %>
+                                        <span class="no-image-text">No Image</span>
+                                    <% } %>
+                                </td>
+                                <td><%= pet.name %></td>
+                                <td><%= pet.species %></td>
+                                <td class="breed-col"><%= pet.breed %></td>
+                                <td class="age-col"><%= typeof pet.age !== 'undefined' ? pet.age : 'N/A' %></td>
+                                <td class="price-col"><%= typeof pet.price === 'number' ? '$' + pet.price.toFixed(2) : 'N/A' %></td>
+                                <td class="actions-col">
+                                    <a href="/edit-pet/<%= pet._id %>" class="action-btn edit-btn">Edit</a>
+                                    <!-- Delete Form (Requires method-override package or specific POST route handling) -->
+                                    <form action="/pets/<%= pet._id %>?_method=DELETE" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete <%= pet.name %>? This action cannot be undone.');">
+                                        <button type="submit" class="action-btn delete-btn">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <!-- Adjust colspan to match the number of columns -->
+                            <td colspan="7" class="no-pets-message">No pets found. Add one using the button above!</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <!-- Optional: Include authentication check script if needed -->
+    <!--
+    <script>
+      // Paste authentication check script from dashboard example if required
+    </script>
+    -->
 </body>
 </html>

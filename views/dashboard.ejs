@@ -8,274 +8,311 @@
       /* General Styles */
       body {
           font-family: 'Arial', sans-serif;
-          background-color: #f8f9fa;
+          background-color: #f8f9fa; /* Light grey background */
           margin: 0;
-          padding: 20px;
+          padding: 30px 20px; /* More vertical padding */
           display: flex;
           justify-content: center;
-          align-items: center;
-          height: 100vh;
+          align-items: flex-start; /* Align dashboard to top */
+          min-height: 100vh;
+          box-sizing: border-box;
       }
 
-      /* Common Container Style */
-      .container {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          text-align: center;
-          width: 100%;
-          max-width: 800px;
+       /* Apply box-sizing globally */
+      *, *::before, *::after {
+          box-sizing: inherit;
       }
 
       /* Headings */
+      h2, h3 {
+          color: #343a40; /* Darker heading color */
+          margin-top: 0; /* Remove default top margin */
+      }
+
       h2 {
-          margin-bottom: 20px;
-          color: #333;
+          font-size: 1.8em;
+          margin-bottom: 0; /* Adjusted by header padding */
       }
 
-      /* Tables */
-      table {
-          width: 100%;
-          border-collapse: collapse;
-          background: #fff;
+      h3 {
+          font-size: 1.4em;
+          margin-bottom: 15px;
+          border-bottom: 1px solid #eee; /* Subtle separator */
+          padding-bottom: 8px;
       }
 
-      th, td {
-          padding: 12px;
-          border-bottom: 1px solid #ddd;
-          text-align: center;
-      }
-
-      th {
-          background-color: #007bff;
-          color: white;
-      }
-
-      /* Form Styles */
-      .form-container {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          width: 100%;
-          max-width: 400px;
-          text-align: center;
-      }
-
-      input, select, textarea {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 12px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 16px;
-      }
-
-      select {
-          background-color: #fff;
-          cursor: pointer;
-      }
-
-      textarea {
-          resize: vertical;
-          min-height: 80px;
-      }
-
-      input[type="file"] {
-          border: none;
-      }
-
-      /* Buttons */
-      button {
-          width: 100%;
-          padding: 12px;
-          background-color: #28a745;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-size: 18px;
-          cursor: pointer;
-          transition: background 0.3s;
-      }
-
-      button:hover {
-          background-color: #218838;
-      }
-
-      /* Dashboard */
+      /* Dashboard Container */
       .dashboard-container {
           background: white;
-          padding: 20px;
+          padding: 0; /* Remove padding, handle internally */
           border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Slightly softer shadow */
           width: 100%;
-          max-width: 450px;
-          text-align: center;
+          max-width: 700px; /* Wider dashboard */
+          text-align: left; /* Default align content left */
+          overflow: hidden; /* Ensure padding/borders contained */
       }
 
+      /* Dashboard Header */
       .dashboard-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 2px solid #ddd;
-          padding-bottom: 10px;
-          margin-bottom: 15px;
+          background-color: #007bff; /* Header background */
+          color: white;
+          padding: 15px 25px; /* Header padding */
+      }
+      .dashboard-header h2 {
+        color: white; /* Ensure heading is white */
+        font-size: 1.6em; /* Adjust size */
+      }
+      .dashboard-header #user {
+          font-weight: bold; /* Make username stand out */
       }
 
-      .dashboard-content h3 {
-          margin-bottom: 10px;
+      /* Dashboard Content Area */
+      .dashboard-content {
+          padding: 25px; /* Padding for content */
       }
 
-      .dashboard-content p {
-          font-size: 16px;
-          color: #555;
+      /* Stats Section */
+      .stats-container {
+          display: flex;
+          flex-wrap: wrap; /* Allow items to wrap */
+          gap: 15px; /* Space between stat items */
+          margin-bottom: 30px; /* Space below stats */
+          text-align: center;
       }
 
+      .stat-item {
+          background-color: #e9ecef; /* Light background for stats */
+          padding: 15px;
+          border-radius: 5px;
+          flex: 1; /* Allow items to grow */
+          min-width: 120px; /* Minimum width before wrapping */
+          border: 1px solid #dee2e6;
+      }
+
+      .stat-item p {
+          margin: 0;
+          font-size: 1em;
+          color: #495057;
+      }
+      .stat-item strong {
+          display: block;
+          font-size: 1.5em; /* Larger number */
+          color: #007bff; /* Highlight color */
+          margin-bottom: 5px;
+      }
+
+
+      /* Action Links Section */
       .dashboard-links {
-          margin-top: 15px;
+          margin-top: 20px;
+          text-align: center; /* Center the buttons */
+          padding-top: 20px;
+          border-top: 1px solid #eee; /* Separator above actions */
       }
 
       .btn {
           display: inline-block;
           text-decoration: none;
           color: white;
-          background: #007bff;
-          padding: 10px;
-          margin: 5px;
+          background: #17a2b8; /* Info color for general actions */
+          padding: 10px 18px; /* Adjust padding */
+          margin: 5px 8px; /* Adjust margin */
           border-radius: 5px;
-          font-size: 14px;
-          transition: 0.3s;
+          font-size: 0.95em; /* Slightly smaller font */
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.1s ease;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
 
       .btn:hover {
-          background: #0056b3;
+          background: #138496; /* Darker shade on hover */
+          transform: translateY(-1px); /* Subtle lift effect */
       }
+
+      .btn.add-pet { /* Specific style for Add Pet button */
+        background-color: #28a745; /* Green */
+      }
+      .btn.add-pet:hover {
+        background-color: #218838;
+      }
+
 
       /* Logout Button */
       .logout-btn {
-          background: #dc3545;
+          background: #dc3545; /* Danger color */
           color: white;
           border: none;
-          padding: 8px 12px;
+          padding: 8px 15px; /* Adjust padding */
           cursor: pointer;
           border-radius: 5px;
-          transition: 0.3s;
+          font-size: 0.9em; /* Slightly smaller */
+          transition: background-color 0.3s ease;
+          margin-left: 15px; /* Space from title */
+          /* width: auto; <- Implicitly auto */
       }
 
       .logout-btn:hover {
-          background: #c82333;
-      }
-
-      /* Login */
-      .login-container {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          text-align: center;
-          width: 100%;
-          max-width: 350px;
-      }
-
-      input {
-          width: 100%;
-          padding: 10px;
-          margin: 10px 0;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          font-size: 16px;
-      }
-
-      /* Error Message */
-      .error-message {
-          color: red;
-          font-size: 14px;
-          margin-bottom: 10px;
-      }
-
-      /* Delete Button */
-      .delete-btn {
-          color: white;
-          background: red;
-          padding: 6px 10px;
-          text-decoration: none;
-          border-radius: 4px;
-          font-size: 14px;
-      }
-
-      .delete-btn:hover {
-          background: darkred;
-      }
-
-      /* Pet Image */
-      .pet-img {
-          width: 80px;
-          height: 80px;
-          object-fit: cover;
-          border-radius: 6px;
-          border: 1px solid #ddd;
+          background: #c82333; /* Darker red */
       }
 
       /* Responsive Design */
-      @media (max-width: 600px) {
-          .container, .dashboard-container, .form-container, .login-container {
-              width: 90%;
+      @media (max-width: 768px) {
+          .dashboard-header {
+              padding: 15px 20px;
           }
+          .dashboard-header h2 {
+              font-size: 1.4em;
+          }
+          .dashboard-content {
+              padding: 20px;
+          }
+          .stats-container {
+              gap: 10px;
+          }
+          .stat-item {
+              min-width: 100px; /* Adjust min-width */
+          }
+          .btn {
+              padding: 9px 15px;
+              font-size: 0.9em;
+          }
+      }
 
-          .pet-img {
-              width: 60px;
-              height: 60px;
+      @media (max-width: 600px) {
+           body {
+              padding: 20px 10px;
+           }
+          .dashboard-container {
+              max-width: 95%; /* Allow more width */
+          }
+          .dashboard-header {
+             flex-direction: column; /* Stack header items */
+             align-items: flex-start; /* Align items left */
+             padding-bottom: 10px;
+          }
+          .dashboard-header h2 {
+              margin-bottom: 10px; /* Space below title */
+          }
+          .logout-btn {
+              margin-left: 0; /* Remove left margin */
+              margin-top: 5px; /* Add top margin */
+              align-self: flex-start; /* Keep button aligned left */
+          }
+          .stats-container {
+             flex-direction: column; /* Stack stats vertically */
+             gap: 10px;
+             margin-bottom: 25px;
+          }
+          .stat-item {
+            text-align: left; /* Align stat text left */
+            display: flex; /* Use flex for layout */
+            justify-content: space-between; /* Space out text and number */
+            align-items: center;
+          }
+           .stat-item strong {
+            font-size: 1.3em; /* Slightly smaller number */
+            margin-bottom: 0;
+          }
+           .dashboard-links {
+             text-align: left; /* Align buttons left */
+           }
+          .btn {
+              display: block; /* Make buttons full width */
+              width: 100%;
+              margin: 8px 0; /* Adjust margins */
+              text-align: center;
           }
       }
 
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        fetch("/check-auth")
-          .then(response => response.json())
+        fetch("/check-auth") // Assuming this endpoint exists
+          .then(response => {
+            if (!response.ok) { // Check if response status is not 2xx
+              throw new Error(`Authentication check failed: ${response.status}`);
+            }
+            return response.json();
+          })
           .then(data => {
             if (!data.authenticated) {
               sessionStorage.removeItem("user");
               window.location.href = "/"; // Redirect if not authenticated
             } else {
-              sessionStorage.setItem("user", data.username);
-              document.getElementById("user").innerText = data.username;
+              sessionStorage.setItem("user", data.username); // Store username in session
+              // Safely update the DOM element
+              const userElement = document.getElementById("user");
+              if (userElement) {
+                userElement.textContent = data.username; // Use textContent for security
+              }
             }
           })
-          .catch(() => {
-            sessionStorage.removeItem("user");
-            window.location.href = "/";
+          .catch((error) => {
+            console.error("Auth check error:", error);
+            sessionStorage.removeItem("user"); // Clear session on error
+            window.location.href = "/"; // Redirect on error
           });
       });
 
       function logout() {
-        sessionStorage.removeItem("user"); // Clear session storage
-        fetch("/logout", { method: "GET" })
-          .then(() => window.location.href = "/"); // Redirect after logout
+        sessionStorage.removeItem("user"); // Clear client-side session
+        fetch("/logout", { method: "POST" }) // Use POST for actions that change state
+          .then(response => {
+            if (!response.ok) {
+                console.error("Logout failed on server.");
+            }
+            // Redirect regardless of server response for logout
+            window.location.href = "/";
+          })
+          .catch(error => {
+             console.error("Error during logout fetch:", error);
+             // Still redirect even if fetch fails
+             window.location.href = "/";
+          });
       }
     </script>
 </head>
 <body>
     <div class="dashboard-container">
-        <div class="dashboard-header">
-            <h2>Welcome, <span id="user"></span>!</h2>
-        </div>
+        <header class="dashboard-header">
+            <h2>Welcome, <span id="user">Admin</span>!</h2> <!-- Default text -->
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
 
-        <div class="dashboard-content">
-            <h3>Dashboard Overview</h3>
-            <p><strong>Total Users:</strong> <%= totalUsers %></p>
-            <p><strong>Total Pets:</strong> <%= totalPets %></p>
-            <p><strong>Total Orders:</strong> <%= totalOrders %></p>
+        <main class="dashboard-content">
+            <section class="stats-section">
+                <h3>Overview</h3>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <p>Total Users</p>
+                        <strong><%= typeof totalUsers !== 'undefined' ? totalUsers : 'N/A' %></strong>
+                    </div>
+                    <div class="stat-item">
+                        <p>Total Pets</p>
+                        <strong><%= typeof totalPets !== 'undefined' ? totalPets : 'N/A' %></strong>
+                    </div>
+                    <div class="stat-item">
+                         <p>Total Orders</p>
+                        <strong><%= typeof totalOrders !== 'undefined' ? totalOrders : 'N/A' %></strong>
+                    </div>
+                </div>
+            </section>
 
-            <div class="dashboard-links">
-                <a href="/add-pet" class="btn">Add New Pet</a>
-                <a href="/users" class="btn">Manage Users</a>
-                <a href="/pets" class="btn">Manage Pets</a>
-            </div>
-        </div>
-        <hr/>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+            <section class="actions-section">
+                <h3>Manage</h3>
+                <div class="dashboard-links">
+                    <a href="/add-pet" class="btn add-pet">Add New Pet</a>
+                    <a href="/users" class="btn">Manage Users</a>
+                    <a href="/pets" class="btn">Manage Pets</a>
+                    <!-- Add more links as needed -->
+                </div>
+            </section>
+        </main>
     </div>
 </body>
 </html>
