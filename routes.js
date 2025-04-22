@@ -138,6 +138,22 @@ router.get("/delete-user/:id", isAuthenticated, async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.redirect("/users");
 });
+router.post("/delete-user/:id", isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      // Optional: Handle case where pet wasn't found (maybe already deleted)
+      console.log(`USER with ID ${req.params.id} not found for deletion.`);
+      // You might want to send a message back or just redirect
+    }
+    console.log(`Deleted user with ID: ${req.params.id}`); // Optional: Add logging
+    res.redirect("/users"); 
+  } catch (error) {
+    console.error("Error deleting user:", error); // Log the error
+    // Optionally, send an error message back to the user or redirect with a flash message
+    res.status(500).send("Error deleting user: " + error.message);
+  }
+});
 
 // ✅ Manage Pets
 router.get("/pets", isAuthenticated, async (req, res) => {
