@@ -1,5 +1,5 @@
 // models/Pet.js
-import mongoose from "mongoose"; // Or const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const petSchema = new mongoose.Schema(
   {
@@ -32,8 +32,4 @@ const petSchema = new mongoose.Schema(
   { timestamps: true }
 ); // Adds createdAt and updatedAt automatically
 
-// Ensure only one owner per pet (implicit via available=false check, but good practice)
-// petSchema.index({ owner: 1 }, { unique: true, sparse: true }); // Only enforce uniqueness if owner is not null
-
-export default mongoose.model("Pet", petSchema);
-// Or: module.exports = mongoose.model("Pet", petSchema);
+module.exports = mongoose.model("Pet", petSchema);
