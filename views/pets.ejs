@@ -287,7 +287,7 @@
                                 <td class="actions-col">
                                     <a href="/edit-pet/<%= pet._id %>" class="action-btn edit-btn">Edit</a>
                                     <!-- Delete Form (Requires method-override package or specific POST route handling) -->
-                                    <form action="/pets/<%= pet._id %>?_method=DELETE" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete <%= pet.name %>? This action cannot be undone.');">
+                                    <form action="/delete-pet/<%= pet._id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete <%= pet.name %>? This action cannot be undone.');">
                                         <button type="submit" class="action-btn delete-btn">Delete</button>
                                     </form>
                                 </td>
