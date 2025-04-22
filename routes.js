@@ -187,10 +187,21 @@ router.post("/update-pet/:id", upload.array("images", 5), async (req, res) => {
 });
 
 
-// ✅ Delete Pet
-router.get("/delete-pet/:id", isAuthenticated, async (req, res) => {
-  await Pet.findByIdAndDelete(req.params.id);
-  res.redirect("/pets");
+router.post("/delete-pet/:id", isAuthenticated, async (req, res) => {
+  try {
+    const deletedPet = await Pet.findByIdAndDelete(req.params.id);
+    if (!deletedPet) {
+      // Optional: Handle case where pet wasn't found (maybe already deleted)
+      console.log(`Pet with ID ${req.params.id} not found for deletion.`);
+      // You might want to send a message back or just redirect
+    }
+    console.log(`Deleted pet with ID: ${req.params.id}`); // Optional: Add logging
+    res.redirect("/pets"); // Redirect back to the pets list page
+  } catch (error) {
+    console.error("Error deleting pet:", error); // Log the error
+    // Optionally, send an error message back to the user or redirect with a flash message
+    res.status(500).send("Error deleting pet: " + error.message);
+  }
 });
 
 module.exports = router;
